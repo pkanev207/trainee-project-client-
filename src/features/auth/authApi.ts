@@ -9,8 +9,6 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     loginUser: builder.mutation({
       query: (body: { email: string; password: string }) => {
-        console.log("From the loginUser!");
-        debugger;
         return {
           url: "/users/login",
           method: "POST",
@@ -29,6 +27,11 @@ export const authApi = createApi({
     }),
   }),
 });
+
+// export async function getLoggedInUser(): Promise<User> {
+//   const response = await fetchData("/api/users", { method: "GET" });
+//   return response.json();
+// }
 
 export const { useLoginUserMutation, useRegisterUserMutation } = authApi;
 

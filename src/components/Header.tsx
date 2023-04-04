@@ -1,15 +1,20 @@
 import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { logout, selectAuth } from "../features/auth/authSlice";
+import { toast } from "react-toastify";
 // import { logout, reset } from "../features/auth/authSlice";
 
 function Header() {
-  const navigate = useNavigate();
-//   const dispatch = useDispatch();
+  const { name } = useAppSelector(selectAuth);
+  const dispatch = useAppDispatch();
   //   const { user } = useSelector((state) => state.auth);
-  const user = null;
+  //   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onLogout = () => {
+    dispatch(logout());
+    toast.success("User logout successfully!");
     // dispatch(logout());
     // dispatch(reset());
     navigate("/");
@@ -24,7 +29,7 @@ function Header() {
         <Link to="/dashboard">Create Book</Link>
       </div>
       <ul>
-        {user ? (
+        {name ? (
           <li>
             <button className="btn" onClick={onLogout}>
               <FaSignOutAlt /> Logout
@@ -33,12 +38,12 @@ function Header() {
         ) : (
           <>
             <li>
-              <Link to="/login">
+              <Link to="/auth/login">
                 <FaSignInAlt /> Login
               </Link>
             </li>
             <li>
-              <Link to="/register">
+              <Link to="/auth/register">
                 <FaUser /> Register
               </Link>
             </li>

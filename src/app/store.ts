@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { authApi } from "../features/auth/authApi";
-import { userApi } from "../features/auth/userApi";
-import userReducer from "../features/auth/userSlice";
+import authReducer from "../features/auth/authSlice";
+// import { userApi } from "../features/auth/userApi";
+// import userReducer from "../features/auth/userSlice";
 // import authReducer from "../features/auth/authSlice";
 // import { booksApi } from "../features/books/bookAPI";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
@@ -12,6 +13,7 @@ export const store = configureStore({
     // ? Add the authReducer to the reducer object
     // authUser: authReducer,
     // [books.reducerPath]: books.reducer,
+    auth: authReducer,
     [authApi.reducerPath]: authApi.reducer,
     // [userApi.reducerPath]: userApi.reducer,
     // userState: userReducer,
@@ -28,6 +30,6 @@ export const store = configureStore({
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export const useAppDispatch = () => useDispatch<AppDispatch>();
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+// export const useAppDispatch = () => useDispatch<AppDispatch>();
+// export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 setupListeners(store.dispatch);

@@ -4,13 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
 import { useLoginUserMutation } from "../features/auth/authApi";
+import { useAppDispatch } from "../app/hooks";
+import { setUser } from "../features/auth/authSlice";
 
 function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
   const { email, password } = formData;
   const [
     loginUser,
@@ -19,9 +20,10 @@ function Login() {
       isSuccess: isLoginSuccess,
       isError: isLoginError,
       error: loginError,
+      isLoading,
     },
   ] = useLoginUserMutation();
-
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,8 +35,6 @@ function Login() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("From the onSubmit!");
-    console.log(formData);
 
     if (email && password) {
       await loginUser({ email, password });
@@ -46,13 +46,20 @@ function Login() {
   useEffect(() => {
     if (isLoginSuccess) {
       toast.success("User login successful!");
+      dispatch(setUser({ name: loginData.name, token: loginData.token }));
       navigate("/");
     }
-  }, [isLoginSuccess, navigate]);
+  }, [isLoginSuccess]);
 
-  // if (isLoading) {
-  //   return <Spinner />;
-  // }
+  useEffect(() => {
+    if (isLoginError) {
+      toast.error((loginError as any).data.message);
+    }
+  }, [isLoginError, loginError]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>

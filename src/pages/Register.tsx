@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
-// import { register, reset } from "../features/auth/authSlice";
 import Spinner from "../components/Spinner";
 import { useRegisterUserMutation } from "../features/auth/authApi";
+import { useAppDispatch } from "../app/hooks";
+import { setUser } from "../features/auth/authSlice";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -13,10 +14,10 @@ function Register() {
     password: "",
     repass: "",
   });
-
   const { name, email, password, repass } = formData;
-  const [registerUser, { data, isLoading, isSuccess, error, isError }] =
+  const [registerUser, { data, isLoading, isSuccess, isError, error }] =
     useRegisterUserMutation();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,27 +31,31 @@ function Register() {
     e.preventDefault();
 
     if (password !== repass) {
-      toast.error("Passwords do not match!");
-    } else {
-      const userData = { name, email, password };
-      console.log(userData);
-      // dispatch(register(userData));
-      console.log(registerUser, { isLoading, isSuccess, error, isError });
-      await registerUser(userData);
-      navigate("/");
+      return toast.error("Passwords do not match!");
+    }
+
+    if (name && email && password) {
+      await registerUser({ name, email, password });
     }
   };
 
   useEffect(() => {
     if (isSuccess) {
       toast.success("User register successful!");
+      dispatch(setUser({ name: data.name, token: data.token }));
       navigate("/");
     }
   }, [isSuccess, navigate]);
 
-  // if (isLoading) {
-  //   return <Spinner />;
-  // }
+  useEffect(() => {
+    if (isError) {
+      toast.error((error as any).data.message);
+    }
+  }, [isError, error]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
