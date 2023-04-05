@@ -1,16 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { apiSlice } from "../api/apiSlice";
 
-export const authApi = createApi({
-  reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api",
-  }),
-  // route /api/users/login
+export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation({
       query: (body: { email: string; password: string }) => {
         return {
-          url: "/users/login",
+          url: "/api/users/login",
           method: "POST",
           body,
         };
@@ -19,7 +15,7 @@ export const authApi = createApi({
     registerUser: builder.mutation({
       query: (body: { name: string; email: string; password: string }) => {
         return {
-          url: "/users/register",
+          url: "/api/users/register",
           method: "POST",
           body,
         };
@@ -28,12 +24,42 @@ export const authApi = createApi({
   }),
 });
 
+export const { useLoginUserMutation, useRegisterUserMutation } = authApi;
+
+// export const authApi = createApi({
+//   reducerPath: "authApi",
+//   baseQuery: fetchBaseQuery({
+//     baseUrl: "http://localhost:5000",
+//   }),
+//   // route /api/users/login
+//   endpoints: (builder) => ({
+//     loginUser: builder.mutation({
+//       query: (body: { email: string; password: string }) => {
+//         return {
+//           url: "/api/users/login",
+//           method: "POST",
+//           body,
+//         };
+//       },
+//     }),
+//     registerUser: builder.mutation({
+//       query: (body: { name: string; email: string; password: string }) => {
+//         return {
+//           url: "/api/users/register",
+//           method: "POST",
+//           body,
+//         };
+//       },
+//     }),
+//   }),
+// });
+
+// export const { useLoginUserMutation, useRegisterUserMutation } = authApi;
+
 // export async function getLoggedInUser(): Promise<User> {
 //   const response = await fetchData("/api/users", { method: "GET" });
 //   return response.json();
 // }
-
-export const { useLoginUserMutation, useRegisterUserMutation } = authApi;
 
 // import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // // import { LoginInput } from '../../pages/login.page';

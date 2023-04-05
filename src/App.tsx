@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     dispatch(setUser(user));
-  }, []);
+  }, [user, dispatch]);
 
   return (
     <>

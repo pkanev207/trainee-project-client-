@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+// import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { authApi } from "../features/auth/authApi";
 import authReducer from "../features/auth/authSlice";
 // import { userApi } from "../features/auth/userApi";
@@ -14,7 +14,7 @@ export const store = configureStore({
     // authUser: authReducer,
     // [books.reducerPath]: books.reducer,
     auth: authReducer,
-    [authApi.reducerPath]: authApi.reducer,
+    [authApi.reducerPath]: authApi.reducer, // ??? "api" ???
     // [userApi.reducerPath]: userApi.reducer,
     // userState: userReducer,
   },
