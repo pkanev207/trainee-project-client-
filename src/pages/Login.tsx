@@ -3,9 +3,9 @@ import { FaSignInAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
-import { useLoginUserMutation } from "../features/auth/authApi";
+import { useLoginUserMutation } from "../features/auth/auth-api";
 import { useAppDispatch } from "../app/hooks";
-import { setUser } from "../features/auth/authSlice";
+import { setUser } from "../features/auth/auth-slice";
 
 function Login() {
   const [formData, setFormData] = useState({

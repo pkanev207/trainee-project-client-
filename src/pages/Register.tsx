@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
 import Spinner from "../components/Spinner";
-import { useRegisterUserMutation } from "../features/auth/authApi";
+import { useRegisterUserMutation } from "../features/auth/auth-api";
 import { useAppDispatch } from "../app/hooks";
-import { setUser } from "../features/auth/authSlice";
+import { setUser } from "../features/auth/auth-slice";
 
 function Register() {
   const [formData, setFormData] = useState({

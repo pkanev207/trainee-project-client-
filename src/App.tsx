@@ -8,7 +8,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
 import { useAppDispatch } from "./app/hooks";
-import { setUser } from "./features/auth/authSlice";
+import { setUser } from "./features/auth/auth-slice";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {

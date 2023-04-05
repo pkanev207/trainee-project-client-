@@ -1,12 +1,12 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import { apiSlice } from "../api/apiSlice";
+// import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { apiSlice } from "../api/api-slice";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation({
       query: (body: { email: string; password: string }) => {
         return {
-          url: "/api/users/login",
+          url: "/users/login",
           method: "POST",
           body,
         };
@@ -15,7 +15,7 @@ export const authApi = apiSlice.injectEndpoints({
     registerUser: builder.mutation({
       query: (body: { name: string; email: string; password: string }) => {
         return {
-          url: "/api/users/register",
+          url: "/users/register",
           method: "POST",
           body,
         };

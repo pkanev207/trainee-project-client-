@@ -1,11 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { authApi } from "../features/auth/authApi";
-import authReducer from "../features/auth/authSlice";
-// import { userApi } from "../features/auth/userApi";
-// import userReducer from "../features/auth/userSlice";
-// import authReducer from "../features/auth/authSlice";
-// import { booksApi } from "../features/books/bookAPI";
+import { apiSlice } from "../features/api/api-slice";
+import { authApi } from "../features/auth/auth-api";
+import { booksApi } from "../features/books/books-api";
+import authReducer from "../features/auth/auth-slice";
+
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
 export const store = configureStore({
@@ -14,7 +13,9 @@ export const store = configureStore({
     // authUser: authReducer,
     // [books.reducerPath]: books.reducer,
     auth: authReducer,
-    [authApi.reducerPath]: authApi.reducer, // ??? "api" ???
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    // [authApi.reducerPath]: authApi.reducer, // ??? "api" ???
+    // [booksApi.reducerPath]: booksApi.reducer,
     // [userApi.reducerPath]: userApi.reducer,
     // userState: userReducer,
   },
@@ -23,8 +24,11 @@ export const store = configureStore({
   // Adding the api middleware enables caching, invalidation, polling...
   // middleware: (getDefaultMiddleware) =>
   //   getDefaultMiddleware({}).concat([authApi.middleware, userApi.middleware]),
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware().concat(authApi.middleware),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware),
+    getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: true,
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
