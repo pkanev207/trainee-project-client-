@@ -4,24 +4,16 @@ import { useDeleteBookMutation } from "../features/books/books-api";
 
 function Book({ book }: any) {
   const { token } = useSelector(selectAuth);
-
   const [deleteBook, { isLoading, isSuccess }] = useDeleteBookMutation();
+
   const onClick = async () => {
     console.log(token);
     console.log(book._id);
     if (token) {
-      const failedBook = Object.assign({ token: token }, book);
-      console.log("From book component:");
-      console.log(book);
-      console.log(failedBook);
-
       if (window.confirm("Are you sure?")) {
-        await deleteBook(failedBook);
+        await deleteBook({ book, token });
       }
     }
-
-    // await dispatch(deleteBook(book._id));
-    // return await dispatch(getUserBooks());
   };
   return (
     <div className="book">

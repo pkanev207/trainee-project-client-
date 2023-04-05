@@ -1,6 +1,4 @@
 import { apiSlice } from "../api/api-slice";
-import { useSelector } from "react-redux";
-import { selectAuth } from "../auth/auth-slice";
 
 export const booksApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -26,11 +24,17 @@ export const booksApi = apiSlice.injectEndpoints({
       providesTags: ["Books"],
     }),
     createBook: builder.mutation({
-      query: (book) => {
+      query: ({ book, token }) => {
+        console.log("From th query");
+        console.log(book);
+        console.log(token);
         return {
           url: "/books",
           method: "POST",
           body: book,
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
         };
       },
       // transformResponse: () => {},
@@ -48,22 +52,19 @@ export const booksApi = apiSlice.injectEndpoints({
       invalidatesTags: ["Books"],
     }),
     deleteBook: builder.mutation({
-      query: (book) => {
-        console.log("From the query:");
-        console.log(book);
-
+      query: ({ book, token }) => {
         return {
           url: `/books/${book._id}`,
           method: "DELETE",
           body: book._id,
-          prepareHeaders: (
-            headers: Headers,
-            api: { getState: () => unknown }
-          ) => {
-            headers.set("Authorization", `Bearer ${book.token}`);
-            return headers;
+          headers: {
+            authorization: `Bearer ${token}`,
           },
-          credentials: "include",
+          // prepareHeaders: (headers: Headers) => {
+          //   headers.set("Authorization", `Bearer ${token}`);
+          //   return headers;
+          // },
+          // credentials: "include", // due to CORS
         };
       },
       invalidatesTags: ["Books"],

@@ -9,7 +9,6 @@ import { FaTrash, FaUpload } from "react-icons/fa";
 
 function Home() {
   const { name } = useAppSelector(selectAuth);
-  // const userBooks: any = [{ title: "Some Book" }, { title: "Another book" }];
   const navigate = useNavigate();
   console.log(useGetAllBooksQuery());
   const { data, isLoading, isSuccess, isError, error } = useGetAllBooksQuery();

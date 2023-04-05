@@ -1,19 +1,25 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-// import { createBook } from "../features/books/bookSlice";
-// import { getUserBooks } from "../features/books/bookSlice";
+import { useGetUser } from "../app/hooks";
+import { useCreateBookMutation } from "../features/books/books-api";
+import { useNavigate } from "react-router-dom";
 
 function BookForm() {
   const [title, setTitle] = useState("");
-
-  const dispatch = useDispatch();
+  const [createBook, { isLoading, isSuccess }] = useCreateBookMutation();
+  const user = useGetUser();
+  const navigate = useNavigate();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // await dispatch(createBook({ title }));
-    setTitle("");
+    const book = { title };
+    const token = user?.token;
+    if (token && title !== "") {
+      const res = await createBook({ book, token });
+      console.log(res);
+    }
 
-    // return await dispatch(getUserBooks());
+    setTitle("");
+    navigate("/");
   };
 
   return (
