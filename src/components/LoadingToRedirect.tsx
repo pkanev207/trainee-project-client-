@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoadingToRedirect = () => {
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(3);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const LoadingToRedirect = () => {
     return () => clearInterval(interval);
   }, [count, navigate]);
 
-  return <div>Loading...</div>;
+  return <h3>Checking credentials... {count}</h3>;
 };
 
 export default LoadingToRedirect;

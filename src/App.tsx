@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
 import { useAppDispatch } from "./app/hooks";
 import { setUser } from "./features/auth/authSlice";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -25,9 +26,16 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/auth/register" element={<Register />} />
             <Route path="/auth/login" element={<Login />} />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </div>
       </Router>
