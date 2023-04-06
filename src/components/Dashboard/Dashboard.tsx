@@ -1,4 +1,4 @@
-import BookForm from "../components/BookForm";
+import BookForm from "../BookForm/BookForm";
 
 export interface IDashboardProps {}
 

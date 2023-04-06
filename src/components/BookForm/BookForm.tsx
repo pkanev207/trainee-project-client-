@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useGetUser } from "../app/hooks";
-import { useCreateBookMutation } from "../features/books/books-api";
+import { useGetUser } from "../../app/hooks";
+import { useCreateBookMutation } from "../../features/books/books-api";
 import { useNavigate } from "react-router-dom";
+import { FaUpload } from "react-icons/fa";
 
 function BookForm() {
   const [title, setTitle] = useState("");
@@ -37,6 +38,7 @@ function BookForm() {
         </div>
         <div className="form-group">
           <button className="btn btn-block" type="submit">
+            <FaUpload />
             Add Book
           </button>
         </div>

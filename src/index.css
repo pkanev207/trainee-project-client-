@@ -100,12 +100,13 @@ h3 {
 }
 
 .book .close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
+  /* position: absolute; */
+  /* top: 10px; */
+  /* right: 15px; */
   cursor: pointer;
   border: none;
   background: none;
+  margin: 10px;
 }
 
 .form,

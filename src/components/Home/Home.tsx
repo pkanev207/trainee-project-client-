@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Book from "../components/Book";
-import Spinner from "../components/Spinner";
-import { useAppSelector } from "../app/hooks";
-import { selectAuth } from "../features/auth/auth-slice";
-import { useGetAllBooksQuery } from "../features/books/books-api";
-import { FaTrash, FaUpload } from "react-icons/fa";
+import Book from "../Book/Book";
+import Spinner from "../Spinner/Spinner";
+import { useAppSelector } from "../../app/hooks";
+import { selectAuth } from "../../features/auth/auth-slice";
+import { useGetAllBooksQuery } from "../../features/books/books-api";
 
 function Home() {
   const { name } = useAppSelector(selectAuth);
   const navigate = useNavigate();
-  console.log(useGetAllBooksQuery());
-  const { data, isLoading, isSuccess, isError, error } = useGetAllBooksQuery();
+  // console.log(useGetAllBooksQuery());
+  const { data, isFetching, isLoading, isSuccess, isError, error } =
+    useGetAllBooksQuery();
   let userBooks;
   if (data) {
     userBooks = data.books;
@@ -19,9 +19,9 @@ function Home() {
     userBooks = [];
   }
 
-  // if (isLoading) {
-  //   return <Spinner />;
-  // }
+  if (isFetching) {
+    return <Spinner />;
+  }
 
   return (
     <>
