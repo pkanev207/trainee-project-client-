@@ -1,22 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useGetUser } from "../../app/hooks";
 import { useCreateBookMutation } from "../../features/books/books-api";
+import { useUpdateBookMutation } from "../../features/books/books-api";
+// import { useGetBookByIdQuery } from "../../features/books/books-api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { FaUpload } from "react-icons/fa";
 
-function BookForm() {
+export interface IBookFormProps {
+  title?: string;
+  userName?: string;
+}
+
+function BookForm(props: IBookFormProps) {
+  // console.log(props);
   const [title, setTitle] = useState("");
-  const [createBook, { isLoading, isSuccess }] = useCreateBookMutation();
+  const [createBook, { isLoading: isCreateLoading }] = useCreateBookMutation();
+  const [updateBook, { isLoading: isUpdateLoading }] = useUpdateBookMutation();
   const user = useGetUser();
   const navigate = useNavigate();
+  const buttonRef = useRef(null);
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (props.title) {
+      setTitle(props.title);
+    }
+  }, [props.title]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const book = { title };
+    const element = buttonRef.current as unknown as HTMLButtonElement;
+    const action = element.textContent;
     const token = user?.token;
-    if (token && title !== "") {
+    const isAuthor = props.userName === user?.name;
+
+    if (action === "Add Book" && !isAuthor && title !== "" && token) {
+      const book = { title };
       const res = await createBook({ book, token });
       console.log(res);
+    } else if (action === "Update Book" && isAuthor && title !== "") {
+      const book = { ...props, title };
+      const res = await updateBook({ book, token });
+      console.log(res);
+    } else {
+      return toast.error(
+        "Please make sure you are the author of the book and check all the input fields"
+      );
     }
 
     setTitle("");
@@ -25,7 +58,7 @@ function BookForm() {
 
   return (
     <section className="form">
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Book</label>
           <input
@@ -33,13 +66,13 @@ function BookForm() {
             name="title"
             id="title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <button className="btn btn-block" type="submit">
+          <button className="btn btn-block" type="submit" ref={buttonRef}>
             <FaUpload />
-            Add Book
+            {props.title ? "Update Book" : "Add Book"}
           </button>
         </div>
       </form>

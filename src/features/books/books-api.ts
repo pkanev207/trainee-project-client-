@@ -12,6 +12,14 @@ export const booksApi = apiSlice.injectEndpoints({
       // transformResponse: () => {},
       providesTags: ["Books"],
     }),
+    getBookById: builder.query({
+      query: (bookId) => {
+        return {
+          url: `/books/${bookId}`,
+          method: "GET",
+        };
+      },
+    }),
     getUserBooks: builder.query({
       query: (body: [{ title: string; _id: string } | null]) => {
         return {
@@ -25,9 +33,6 @@ export const booksApi = apiSlice.injectEndpoints({
     }),
     createBook: builder.mutation({
       query: ({ book, token }) => {
-        console.log("From th query");
-        console.log(book);
-        console.log(token);
         return {
           url: "/books",
           method: "POST",
@@ -41,11 +46,14 @@ export const booksApi = apiSlice.injectEndpoints({
       invalidatesTags: ["Books"],
     }),
     updateBook: builder.mutation({
-      query: (book) => {
+      query: ({ book, token }) => {
         return {
           url: `/books/${book._id}`,
           method: "PUT",
           body: book,
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
         };
       },
       // transformResponse: () => {},
@@ -74,6 +82,7 @@ export const booksApi = apiSlice.injectEndpoints({
 
 export const {
   useGetAllBooksQuery,
+  useGetBookByIdQuery,
   useGetUserBooksQuery,
   useCreateBookMutation,
   useUpdateBookMutation,

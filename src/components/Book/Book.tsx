@@ -1,19 +1,32 @@
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../../features/auth/auth-slice";
 import { useDeleteBookMutation } from "../../features/books/books-api";
-import { FaTrash, FaCcDiscover } from "react-icons/fa";
+import { FaTrash, FaCcDiscover, FaFileInvoice } from "react-icons/fa";
 
 function Book({ book }: any) {
   const { token } = useSelector(selectAuth);
-  const [deleteBook, { isLoading, isSuccess }] = useDeleteBookMutation();
+  const [deleteBook, rest] = useDeleteBookMutation();
+  const navigate = useNavigate();
 
-  const onClick = async () => {
+  const handleDelete = async () => {
     if (token) {
       if (window.confirm("Are you sure?")) {
         await deleteBook({ book, token });
       }
+    } else {
+      navigate("/auth/login");
     }
   };
+
+  const handleEdit = () => {
+    navigate("/edit", {
+      state: {
+        book,
+      },
+    });
+  };
+
   return (
     <div className="book">
       <h3>{book?.title}</h3>
@@ -24,7 +37,11 @@ function Book({ book }: any) {
         <FaCcDiscover />
         Details
       </button>
-      <button onClick={onClick} className="close">
+      <button onClick={handleEdit} className="close">
+        <FaFileInvoice />
+        Edit
+      </button>
+      <button onClick={handleDelete} className="close">
         <FaTrash />
         Delete
       </button>

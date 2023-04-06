@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Book from "../Book/Book";
 import Spinner from "../Spinner/Spinner";
@@ -9,9 +8,8 @@ import { useGetAllBooksQuery } from "../../features/books/books-api";
 function Home() {
   const { name } = useAppSelector(selectAuth);
   const navigate = useNavigate();
-  // console.log(useGetAllBooksQuery());
-  const { data, isFetching, isLoading, isSuccess, isError, error } =
-    useGetAllBooksQuery();
+  const { data, isFetching } = useGetAllBooksQuery();
+  
   let userBooks;
   if (data) {
     userBooks = data.books;

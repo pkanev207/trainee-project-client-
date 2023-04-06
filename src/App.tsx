@@ -7,6 +7,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Header from "./components/Header/Header";
+import Edit from "./components/Edit/Edit";
 import { useAppDispatch } from "./app/hooks";
 import { setUser } from "./features/auth/auth-slice";
 import PrivateRoute from "./components/PrivateRoute";
@@ -33,6 +34,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/edit"
+              element={
+                <PrivateRoute>
+                  <Edit />
                 </PrivateRoute>
               }
             />
