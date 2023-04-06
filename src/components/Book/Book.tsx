@@ -33,6 +33,11 @@ function Book({ book }: any) {
       <div>
         {new Date(book?.createdAt).toLocaleString("en-US").split(",")[0]}
       </div>
+      <div>
+        <img src={book.imgUrl} alt="front cover of the book" />
+      </div>
+      <div>{book?.description}</div>
+      <div>{book?.author}</div>
       <button onClick={(e) => console.log(e.target)} className="close">
         <FaCcDiscover />
         Details

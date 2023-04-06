@@ -87,8 +87,11 @@ h3 {
 }
 
 .books {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr); */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   gap: 10px;
 }
 
