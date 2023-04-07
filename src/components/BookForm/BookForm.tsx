@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { useGetUser } from "../../app/hooks";
 import { useCreateBookMutation } from "../../features/books/books-api";
 import { useUpdateBookMutation } from "../../features/books/books-api";
-// import { useGetBookByIdQuery } from "../../features/books/books-api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaUpload } from "react-icons/fa";
@@ -13,10 +12,10 @@ export interface IBookFormProps {
   imgUrl?: string;
   userName?: string;
   author?: string;
+  user?: { name: string };
 }
 
 function BookForm(props: IBookFormProps) {
-  // console.log(props);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imgUrl, setImgUrl] = useState("");
@@ -34,7 +33,7 @@ function BookForm(props: IBookFormProps) {
       setImgUrl(props.imgUrl);
       setAuthor(props.author);
     }
-  }, [props.title, props.description, props.imgUrl]);
+  }, [props.title, props.description, props.imgUrl, props.author]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -45,10 +44,9 @@ function BookForm(props: IBookFormProps) {
     const element = buttonRef.current as unknown as HTMLButtonElement;
     const action = element.textContent;
     const token = user?.token;
-    const isAuthor = props.userName === user?.name;
+    const isAuthor = props?.user?.name === user?.name;
     const isValidInput =
       title !== "" && description !== "" && imgUrl !== "" && author !== "";
-    console.log(isValidInput);
 
     if (action === "Add Book" && !isAuthor && isValidInput && token) {
       const book = { title, description, imgUrl, author };
@@ -90,13 +88,6 @@ function BookForm(props: IBookFormProps) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
-          {/* <input
-            type="text"
-            name="description"
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          /> */}
           <label htmlFor="imgUrl">ImageUrl</label>
           <input
             type="text"

@@ -90,16 +90,18 @@ h3 {
   /* display: grid;
   grid-template-columns: repeat(2, 1fr); */
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 10px;
+  /* flex-flow: column wrap; */
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 30px;
 }
 
 .book {
   background-color: #f4f4f4;
   margin: 10px 0;
-  padding: 20px 0 10px;
-  position: relative;
+  padding: 20px;
+  /* padding: 20px 0 10px; */
+  /* position: relative; */
 }
 
 .book .close {
@@ -109,7 +111,12 @@ h3 {
   cursor: pointer;
   border: none;
   background: none;
-  margin: 10px;
+  font-size: larger;
+  margin: 20px;
+}
+
+.bookCover {
+  margin: 10px 0 10px 0px ;
 }
 
 .form,

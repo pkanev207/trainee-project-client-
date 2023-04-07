@@ -30,14 +30,18 @@ function Book({ book }: any) {
   return (
     <div className="book">
       <h3>{book?.title}</h3>
+      <div>{book?.author}</div>
       <div>
         {new Date(book?.createdAt).toLocaleString("en-US").split(",")[0]}
       </div>
       <div>
-        <img src={book.imgUrl} alt="front cover of the book" />
+        <img
+          className="bookCover"
+          src={book.imgUrl}
+          alt="front cover of the book"
+        />
       </div>
       <div>{book?.description}</div>
-      <div>{book?.author}</div>
       <button onClick={(e) => console.log(e.target)} className="close">
         <FaCcDiscover />
         Details

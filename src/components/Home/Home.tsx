@@ -11,11 +11,7 @@ function Home() {
   const { data, isFetching } = useGetAllBooksQuery();
   
   let userBooks;
-  if (data) {
-    userBooks = data.books;
-  } else {
-    userBooks = [];
-  }
+  data ? (userBooks = data.books) : (userBooks = []);
 
   if (isFetching) {
     return <Spinner />;
