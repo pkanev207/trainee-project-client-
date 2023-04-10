@@ -25,9 +25,11 @@ function Header() {
       <div className="logo">
         <Link to="/">Home</Link>
       </div>
-      <div className="logo">
-        <Link to="/dashboard">Create Book</Link>
-      </div>
+      {name && (
+        <div className="logo">
+          <Link to="/dashboard">Create Book</Link>
+        </div>
+      )}
       <ul>
         {name ? (
           <li>

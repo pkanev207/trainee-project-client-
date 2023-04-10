@@ -1,9 +1,7 @@
 import { useLocation } from "react-router-dom";
 import BookForm from "../BookForm/BookForm";
 
-export interface IEditProps {}
-
-export default function Edit(props: IEditProps) {
+export default function Edit() {
   const { state } = useLocation();
 
   return (

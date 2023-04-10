@@ -7,6 +7,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Header from "./components/Header/Header";
+import Details from "./components/Details/Details";
 import Edit from "./components/Edit/Edit";
 import { useAppDispatch } from "./app/hooks";
 import { setUser } from "./features/auth/auth-slice";
@@ -37,6 +38,7 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route path="/details" element={<Details />} />
             <Route
               path="/edit"
               element={
