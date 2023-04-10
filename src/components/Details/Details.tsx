@@ -6,20 +6,13 @@ import { FaTrash, FaFileInvoice } from "react-icons/fa";
 function Details() {
   const user = useGetUser();
   const token = user?.token;
-  const [deleteBook, rest] = useDeleteBookMutation();
-  console.log(user?.name);
-
+  const [deleteBook] = useDeleteBookMutation();
   const { state } = useLocation();
   const book = state.book;
-  console.log(book.user.name);
-
   const isAuthor = user?.name === book.user.name;
-  console.log(isAuthor);
-
   const navigate = useNavigate();
 
   const handleEdit = () => {
-    console.log("From the edit func!");
     navigate("/edit", {
       state: {
         book,
@@ -28,10 +21,10 @@ function Details() {
   };
 
   const handleDelete = async () => {
-    console.log("From the delete func!");
     if (token) {
       if (window.confirm("Are you sure?")) {
         await deleteBook({ book, token });
+        navigate("/");
       }
     } else {
       navigate("/auth/login");
