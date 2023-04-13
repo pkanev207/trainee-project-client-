@@ -4,3 +4,11 @@
   margin-bottom: 0;
   color: firebrick;
 }
+
+.dashboard {
+  background-color: antiquewhite;
+  border-radius: 15px 50px 30px;
+  padding: 50px 0px;
+  width: 80%;
+  margin: 0 auto;
+}

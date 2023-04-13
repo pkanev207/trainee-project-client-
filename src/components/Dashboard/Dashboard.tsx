@@ -5,7 +5,7 @@ export interface IDashboardProps {}
 
 export default function Dashboard(props: IDashboardProps) {
   return (
-    <div>
+    <div className={styles.dashboard}>
       <h3 id={styles.dashHeader}>This is the Dashboard</h3>
       <BookForm />
     </div>

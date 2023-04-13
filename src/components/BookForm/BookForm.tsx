@@ -5,7 +5,7 @@ import { useUpdateBookMutation } from "../../features/books/books-api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaUpload } from "react-icons/fa";
-import styles from "./BookForm.module.css";
+// import styles from "./BookForm.module.css";
 
 export interface IBookFormProps {
   title?: string;
@@ -13,7 +13,7 @@ export interface IBookFormProps {
   imgUrl?: string;
   userName?: string;
   author?: string;
-  user?: { _id: string; name: string; role: string };
+  user?: { _id?: string; name: string; role: string };
 }
 
 function BookForm(props: IBookFormProps) {
@@ -43,10 +43,10 @@ function BookForm(props: IBookFormProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const element = buttonRef.current as unknown as HTMLButtonElement;
-    const action = element.textContent;
-    const token = user?.token;
-    const isAuthor = props?.user?.name === user?.name;
-    const isValidInput =
+    const action: string = element.textContent ?? "";
+    const token: string = user?.token ?? "";
+    const isAuthor: boolean = props?.user?.name === user?.name;
+    const isValidInput: boolean =
       title !== "" && description !== "" && imgUrl !== "" && author !== "";
 
     if (action === "Add Book" && !isAuthor && isValidInput && token) {
@@ -63,7 +63,6 @@ function BookForm(props: IBookFormProps) {
       );
     }
 
-    setTitle("");
     navigate("/");
   };
 
@@ -81,7 +80,6 @@ function BookForm(props: IBookFormProps) {
           />
           <label htmlFor="description">Description</label>
           <textarea
-            // type="text"
             maxLength={500}
             rows={5}
             name="description"
