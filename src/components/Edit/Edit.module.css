@@ -1,0 +1,12 @@
+#editHeader {
+  font-family: Verdana, sans-serif;
+  font-size: x-large;
+  margin-bottom: 0;
+  color: firebrick;
+}
+
+.edit {
+  background-color: antiquewhite;
+  border-radius: 15px 50px 30px;
+  padding: 50px 0px;
+}

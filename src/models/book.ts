@@ -4,7 +4,7 @@ export interface BookModel {
   description: string;
   imgUrl: string;
   author: string;
-  user: { name: string; role: string };
+  user: { _id?: string; name?: string; role?: string };
   userName?: string;
   likes?: [string];
   uploadedByUsers?: [string];

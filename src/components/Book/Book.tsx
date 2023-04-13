@@ -1,7 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { FaCcDiscover } from "react-icons/fa";
+import { BookModel } from "../../models/book";
+import styles from "./Book.module.css";
 
-function Book({ book }: any) {
+interface IBookProps {
+  book: BookModel;
+  className?: string;
+}
+
+function Book({ book }: IBookProps) {
   const navigate = useNavigate();
 
   const handleDetails = () => {
@@ -14,11 +21,11 @@ function Book({ book }: any) {
 
   return (
     <div className="book">
-      <h3>{book?.title}</h3>
-      <div>{book?.author}</div>
+      <h3>{book.title}</h3>
+      <div>{book.author}</div>
       <div>
         <img
-          className="cover"
+          className={styles.cover}
           src={book.imgUrl}
           alt="front cover of the book"
         />

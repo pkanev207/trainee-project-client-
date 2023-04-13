@@ -5,6 +5,7 @@ import { useUpdateBookMutation } from "../../features/books/books-api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaUpload } from "react-icons/fa";
+import styles from "./BookForm.module.css";
 
 export interface IBookFormProps {
   title?: string;
@@ -12,7 +13,7 @@ export interface IBookFormProps {
   imgUrl?: string;
   userName?: string;
   author?: string;
-  user?: { name: string; role?: string };
+  user?: { _id: string; name: string; role: string };
 }
 
 function BookForm(props: IBookFormProps) {

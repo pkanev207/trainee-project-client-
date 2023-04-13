@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { logout, selectAuth } from "../../features/auth/auth-slice";
 import { toast } from "react-toastify";
+import styles from "./Header.module.css";
 
 function Header() {
   const { name } = useAppSelector(selectAuth);
@@ -17,12 +18,12 @@ function Header() {
   };
 
   return (
-    <header className="header">
-      <div className="logo">
+    <header className={styles.header}>
+      <div className={styles.logo}>
         <Link to="/">Home</Link>
       </div>
       {name && (
-        <div className="logo">
+        <div className={styles.logo}>
           <Link to="/dashboard">Create Book</Link>
         </div>
       )}

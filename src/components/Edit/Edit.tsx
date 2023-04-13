@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import BookForm from "../BookForm/BookForm";
+import styles from "./Edit.module.css";
 
 export default function Edit() {
   const { state } = useLocation();
@@ -10,8 +11,8 @@ export default function Edit() {
   }
 
   return (
-    <div>
-      <h3>This is the Edit Page!</h3>
+    <div className={styles.edit}>
+      <h3 id={styles.editHeader}>This is the Edit Page!</h3>
       <BookForm {...state?.book} />
     </div>
   );
