@@ -12,7 +12,7 @@ export interface IBookFormProps {
   imgUrl?: string;
   userName?: string;
   author?: string;
-  user?: { name: string };
+  user?: { name: string; role?: string };
 }
 
 function BookForm(props: IBookFormProps) {

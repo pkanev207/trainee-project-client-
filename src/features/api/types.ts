@@ -9,6 +9,8 @@ export interface IUser {
 }
 
 export interface IGenericResponse {
+  name: string;
+  token: string;
   status: string;
   message: string;
 }

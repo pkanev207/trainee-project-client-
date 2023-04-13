@@ -18,7 +18,7 @@ function Book({ book }: any) {
       <div>{book?.author}</div>
       <div>
         <img
-          className="bookCover"
+          className="cover"
           src={book.imgUrl}
           alt="front cover of the book"
         />

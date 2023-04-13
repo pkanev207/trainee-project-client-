@@ -42,7 +42,7 @@ function Register() {
   useEffect(() => {
     if (isSuccess) {
       toast.success("User register successful!");
-      dispatch(setUser({ name: data.name, token: data.token }));
+      dispatch(setUser({ name: data?.name ?? "", token: data?.token ?? "" }));
       navigate("/");
     }
   }, [isSuccess, navigate]);
