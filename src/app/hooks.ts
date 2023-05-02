@@ -6,13 +6,13 @@ import { selectAuth } from "../features/auth/auth-slice";
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-interface userState {
+interface IUserState {
   token: string | null;
   name: string | null;
 }
 
 export const useGetUser = () => {
-  const user: userState = useSelector(selectAuth);
+  const user: IUserState = useSelector(selectAuth);
   if (user.name && user.name) {
     return user;
   } else {

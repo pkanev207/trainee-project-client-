@@ -1,13 +1,13 @@
 import { apiSlice } from "../api/api-slice";
 import { IGenericResponse } from "../api/types";
 
-export interface RegisterCredentials {
+export interface IRegisterCredentials {
   username: string;
   email: string;
   password: string;
 }
 
-export interface LoginCredentials {
+export interface ILoginCredentials {
   username: string;
   password: string;
 }
@@ -15,7 +15,7 @@ export interface LoginCredentials {
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation<IGenericResponse, any>({
-      query: (body: LoginCredentials) => {
+      query: (body: ILoginCredentials) => {
         return {
           url: "/users/login",
           method: "POST",
@@ -24,7 +24,7 @@ export const authApi = apiSlice.injectEndpoints({
       },
     }),
     registerUser: builder.mutation<IGenericResponse, any>({
-      query: (body: RegisterCredentials) => {
+      query: (body: IRegisterCredentials) => {
         return {
           url: "/users/register",
           method: "POST",
