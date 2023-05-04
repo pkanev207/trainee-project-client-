@@ -1,4 +1,3 @@
-/* eslint-disable testing-library/no-unnecessary-act */
 import { Provider } from "react-redux";
 import { store } from "../../app/store";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -39,7 +38,7 @@ describe("Login component tests", () => {
 
   it("click login button with incomplete credentials  - show required message", async () => {
     const submitBtn = screen.getByTestId("btn-submit");
-
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     act(() => {
       user.click(submitBtn);
     });

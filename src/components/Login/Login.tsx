@@ -39,7 +39,7 @@ function Login() {
     if (email && password) {
       try {
         const res = await loginUser({ email, password }).unwrap();
-        console.log(res);
+        // console.log(res);
       } catch (err) {
         console.log(err);
       }
