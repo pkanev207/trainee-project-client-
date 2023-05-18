@@ -1,5 +1,5 @@
 import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { logout, selectAuth } from "../../features/auth/auth-slice";
 import { toast } from "react-toastify";
@@ -10,6 +10,9 @@ function Header() {
   //   const { user } = useSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isDashboard = location.pathname === "/dashboard";
 
   const onLogout = () => {
     dispatch(logout());
@@ -22,7 +25,7 @@ function Header() {
       <div className={styles.logo}>
         <Link to="/">Home</Link>
       </div>
-      {name && (
+      {name && !isDashboard && (
         <div className={styles.logo}>
           <Link to="/dashboard">Create Book</Link>
         </div>

@@ -12,6 +12,7 @@ import { FaUpload } from "react-icons/fa";
 import styles from "./BookForm.module.css";
 
 export interface IBookFormProps {
+  _id?: string;
   title?: string;
   description?: string;
   imgUrl?: string;
@@ -63,16 +64,25 @@ function BookForm(props: IBookFormProps) {
         toast.warning("Upload image");
         return;
       }
+
       const book = new FormData(e.target);
       book.append("imgUrl", imgUrl);
       book.append("image", cover);
-      console.log([...book]);
+
       const res = await createBook({ book, token });
       if (res.error) {
         toast.error(res.error.data.message.toString());
       }
     } else if (action === "Update Book" && isAuthor && isValidInput) {
-      const book = { ...props, title, description, imgUrl, author };
+      // const book = { ...props, title, description, imgUrl, author };
+      const book = new FormData(e.target);
+      if (cover !== undefined) {
+        book.append("image", cover);
+      }
+      book.append("_id", props._id);
+      book.append("imgUrl", imgUrl);
+      book.append("cloudinaryId", props.cloudinaryId);
+
       const res = await updateBook({ book, token });
       console.log(res);
     } else {
@@ -174,12 +184,14 @@ function BookForm(props: IBookFormProps) {
             <img src={coverPreview} alt="" className={styles.previewImg} />
           ) : (
             <div className="coverImageInput">
+              <img src={imgUrl} alt="" className={styles.previewImg} />
               <label htmlFor="image" className={styles.labelCoverBtnUpload}>
                 <p>Upload image</p>
                 <input
                   className={styles.coverBtnUpload}
                   type="file"
-                  accept="image/*"
+                  // accept="image/*"
+                  accept="image/png, image/jpg, image/jpeg"
                   name="image"
                   id="image"
                   onChange={handleCoverChange}

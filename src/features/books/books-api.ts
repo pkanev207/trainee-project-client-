@@ -67,9 +67,10 @@ export const booksApi = apiSlice.injectEndpoints({
     updateBook: builder.mutation({
       query: ({ book, token }) => {
         return {
-          url: `/books/${book._id}`,
+          url: `/books/${book.get("_id")}`,
           method: "PUT",
           body: book,
+          formData: true,
           headers: {
             authorization: `Bearer ${token}`,
           },
