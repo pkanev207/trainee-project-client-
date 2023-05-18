@@ -31,12 +31,31 @@ export const booksApi = apiSlice.injectEndpoints({
       // transformResponse: () => {},
       providesTags: ["Books"],
     }),
+    uploadImg: builder.mutation({
+      query: ({ formData, token }) => {
+        console.log(formData.get("image"));
+
+        return {
+          url: "/books/images/upload",
+          method: "POST",
+          body: formData,
+          formData: true,
+          headers: {
+            // "content-type": "multipart/form-data",
+            authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      // transformResponse: () => {},
+      invalidatesTags: [],
+    }),
     createBook: builder.mutation({
       query: ({ book, token }) => {
         return {
           url: "/books",
           method: "POST",
           body: book,
+          formData: true,
           headers: {
             authorization: `Bearer ${token}`,
           },
@@ -87,4 +106,5 @@ export const {
   useCreateBookMutation,
   useUpdateBookMutation,
   useDeleteBookMutation,
+  useUploadImgMutation,
 } = booksApi;

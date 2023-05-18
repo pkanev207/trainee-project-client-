@@ -1,0 +1,35 @@
+.coverBtnUpload {
+  color: white;
+  display: none;
+  background: #1cb6e0;
+  border: none;
+  padding: 7px 15px;
+  font-weight: 700;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 10pt;
+  /*  visibility: "hidden" */
+}
+
+.labelCoverBtnUpload {
+  text-align: center;
+}
+
+.labelCoverBtnUpload > p {
+  display: inline-block;
+  font-size: larger;
+  border: 2px dotted lightseagreen;
+  border-radius: 7px;
+  padding: 10px;
+  margin: 6px;
+}
+
+.previewImg {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+  overflow: hidden;
+}

@@ -49,7 +49,7 @@ function Details() {
       <div>{createdUpdatedText}</div>
       <div>
         <img
-          className="bookCover"
+          className={styles.bookCover}
           src={book.imgUrl}
           alt="front cover of the book"
         />
