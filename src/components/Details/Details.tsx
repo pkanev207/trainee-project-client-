@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useGetUser } from "../../app/hooks";
 import { useDeleteBookMutation } from "../../features/books/books-api";
 import { FaTrash, FaFileInvoice } from "react-icons/fa";
-import { BookModel } from "../../models/book";
+import { IBookModel } from "../../models/book";
 import styles from "./Details.module.css";
 import { formatDate } from "../../utils/format-date";
 // import { UserModel } from "../../models/user";
@@ -12,7 +12,7 @@ function Details() {
   const token: string = user?.token || "";
   const [deleteBook] = useDeleteBookMutation();
   const { state } = useLocation();
-  const book: BookModel = state.book;
+  const book: IBookModel = state.book;
   const isAuthor: boolean = user?.name === book.user.name;
   const navigate = useNavigate();
 

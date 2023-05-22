@@ -12,6 +12,22 @@ export const booksApi = apiSlice.injectEndpoints({
       // transformResponse: () => {},
       providesTags: ["Books"],
     }),
+    useGetAllBooksPaginated: builder.query<
+      any,
+      { page: number | string; limit?: number | string }
+    >({
+      query: (args) => {
+        // console.log("From useGetAllBooksPaginated!");
+        // console.log(args);
+        const { page, limit } = args;
+        return {
+          url: `/books/paginated?page=${page}&limit=${limit}`,
+          // params: { page, limit },
+          method: "GET",
+        };
+      },
+      // transformResponse: () => {},
+    }),
     getBookById: builder.query({
       query: (bookId) => {
         return {
@@ -33,8 +49,6 @@ export const booksApi = apiSlice.injectEndpoints({
     }),
     uploadImg: builder.mutation({
       query: ({ formData, token }) => {
-        console.log(formData.get("image"));
-
         return {
           url: "/books/images/upload",
           method: "POST",
@@ -97,11 +111,15 @@ export const booksApi = apiSlice.injectEndpoints({
       },
       invalidatesTags: ["Books"],
     }),
+    searchBookByTitle: builder.query({
+      query: (title) => `books/search/${title}`,
+    }),
   }),
 });
 
 export const {
   useGetAllBooksQuery,
+  useUseGetAllBooksPaginatedQuery,
   useGetBookByIdQuery,
   useGetUserBooksQuery,
   useCreateBookMutation,

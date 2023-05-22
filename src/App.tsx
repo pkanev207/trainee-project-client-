@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./components/Home/Home";
+import Home2 from "./components/Home/Home2";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -11,7 +12,7 @@ import Details from "./components/Details/Details";
 import Edit from "./components/Edit/Edit";
 import { useAppDispatch } from "./app/hooks";
 import { setUser } from "./features/auth/auth-slice";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/Private-route";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -27,7 +28,8 @@ function App() {
         <div className="container">
           <Header />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home2 />} />
+            {/* <Route path="/paginated" element={<Home />} /> */}
             <Route path="/auth/register" element={<Register />} />
             <Route path="/auth/login" element={<Login />} />
             <Route

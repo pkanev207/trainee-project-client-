@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { FaCcDiscover } from "react-icons/fa";
-import { BookModel } from "../../models/book";
+import { IBookModel } from "../../models/book";
 import styles from "./Book.module.css";
 
 interface IBookProps {
-  book: BookModel;
+  book: IBookModel;
   className?: string;
 }
 

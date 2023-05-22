@@ -2,6 +2,7 @@ import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { logout, selectAuth } from "../../features/auth/auth-slice";
+import { changePageNumber } from "../../features/books/books-slice";
 import { toast } from "react-toastify";
 import styles from "./Header.module.css";
 
@@ -15,9 +16,11 @@ function Header() {
   const isDashboard = location.pathname === "/dashboard";
 
   const onLogout = () => {
+    dispatch(changePageNumber({ pageNumber: 1 }));
     dispatch(logout());
     toast.success("User logout successfully!");
     navigate("/");
+    window.location.reload();
   };
 
   return (

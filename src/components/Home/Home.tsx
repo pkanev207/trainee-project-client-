@@ -3,14 +3,14 @@ import Spinner from "../Spinner/Spinner";
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/auth-slice";
 import { useGetAllBooksQuery } from "../../features/books/books-api";
-import { BookModel } from "../../models/book";
+import { IBookModel } from "../../models/book";
 import styles from "./Home.module.css";
 
 function Home() {
   const { name } = useAppSelector(selectAuth);
   const { data, isFetching } = useGetAllBooksQuery();
 
-  let userBooks: BookModel[];
+  let userBooks: IBookModel[];
   data ? (userBooks = data.books) : (userBooks = []);
 
   if (isFetching) {
@@ -27,7 +27,7 @@ function Home() {
       <section className={styles.content}>
         {userBooks.length > 0 ? (
           <div className={styles.books}>
-            {userBooks.map((obj: BookModel) => (
+            {userBooks.map((obj: IBookModel) => (
               <Book key={obj["_id"]} book={obj} />
             ))}
           </div>

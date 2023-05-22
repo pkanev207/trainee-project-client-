@@ -1,4 +1,4 @@
-export interface BookModel {
+export interface IBookModel {
   _id: string;
   title: string;
   description: string;

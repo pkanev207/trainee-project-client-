@@ -4,6 +4,7 @@ import { apiSlice } from "../features/api/api-slice";
 // import { authApi } from "../features/auth/auth-api";
 // import { booksApi } from "../features/books/books-api";
 import authReducer from "../features/auth/auth-slice";
+import booksReducer from "../features/books/books-slice";
 
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
@@ -13,6 +14,7 @@ export const store = configureStore({
     // authUser: authReducer,
     // [books.reducerPath]: books.reducer,
     auth: authReducer,
+    books: booksReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
     // [authApi.reducerPath]: authApi.reducer, // ??? "api" ???
     // [booksApi.reducerPath]: booksApi.reducer,

@@ -6,6 +6,7 @@ import Spinner from "../Spinner/Spinner";
 import { useLoginUserMutation } from "../../features/auth/auth-api";
 import { useAppDispatch } from "../../app/hooks";
 import { setUser } from "../../features/auth/auth-slice";
+// import { changePageNumber } from "../../features/books/books-slice";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ function Login() {
       [e.target.name]: e.target.value,
     }));
   };
-  // SyntheticEvent ??? React.FormEvent<HTMLFormElement>
+  // SyntheticEvent ?? React.FormEvent<HTMLFormElement>
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -51,6 +52,7 @@ function Login() {
   useEffect(() => {
     if (isLoginSuccess) {
       toast.success("User login successful!");
+      // dispatch(changePageNumber({ pageNumber: 1 }));
       dispatch(
         setUser({ name: loginData?.name ?? "", token: loginData?.token ?? "" })
       );
