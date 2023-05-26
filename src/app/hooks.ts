@@ -1,6 +1,7 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "./store";
 import { selectAuth } from "../features/auth/auth-slice";
+import { useEffect, useState } from "react";
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -18,6 +19,24 @@ export const useGetUser = () => {
   } else {
     return null;
   }
+};
+
+export const useDebounce = (value: string, delay = 500) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      console.log("setting a new timeout");
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      console.log("clearing the timeout");
+      clearTimeout(id);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
 };
 
 // const name: string = emp.name!; // non-null assertion

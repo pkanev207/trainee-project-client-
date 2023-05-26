@@ -3,31 +3,35 @@ import Spinner from "../Spinner/Spinner";
 import { useAppSelector } from "../../app/hooks";
 import { selectAuth } from "../../features/auth/auth-slice";
 import { selectBooksData } from "../../features/books/books-slice";
-import { useUseGetAllBooksPaginatedQuery } from "../../features/books/books-api";
+import { useGetAllBooksPaginatedQuery } from "../../features/books/books-api";
+// import { useDebounce } from "../../app/hooks";
 import { IBookModel } from "../../models/book";
 import Pagination from "../Pagination/Pagination";
+import SearchBar from "../SearchBar/SearchBar";
 import styles from "./Home.module.css";
 
 import { useState, useEffect } from "react";
 
 function Home2() {
   const { name } = useAppSelector(selectAuth);
-  // const { pageNumber } = useAppSelector((state) => state?.books);
+  const searchTerm = useAppSelector((state) => state.books.bookSearch) ?? "";
+  // const searchTerm = useDebounce(searchTermInput);
   const { pageNumber } = useAppSelector(selectBooksData);
+  // const { pageNumber } = useAppSelector((state) => state?.books);
   const [page, setPage] = useState(Number(pageNumber));
-  const [pages, setPages] = useState(3);
+  const [pages, setPages] = useState(1);
   const [limit, setLimit] = useState(3);
-  const args = { page, limit };
+  const args = { page, limit, searchTerm };
+
   const { data: dataPages, isFetching: isFetchingPages } =
-    useUseGetAllBooksPaginatedQuery(args);
+    useGetAllBooksPaginatedQuery(args);
 
   let userBooks: IBookModel[];
   dataPages ? (userBooks = dataPages.data) : (userBooks = []);
 
   useEffect(() => {
-    // console.log(dataPages);
     setPages(dataPages?.numberOfPages);
-  }, [dataPages, pages, page]);
+  }, [dataPages, pages, page, searchTerm]);
 
   if (isFetchingPages) {
     return <Spinner />;
@@ -39,6 +43,7 @@ function Home2() {
         <h1>Welcome {name}</h1>
         <p>Books Catalog</p>
       </section>
+      {name && <SearchBar setPage={setPage} />}
       <Pagination page={page} pages={pages} changePage={setPage} />
       <section className={styles.content}>
         {userBooks.length > 0 ? (
@@ -54,23 +59,5 @@ function Home2() {
     </>
   );
 }
-
-// const content =
-//   bookSearch === ""
-//     ? books?.map((book) => {
-//         return (
-//           <>
-//             book={book} key={book?._id}
-//           </>
-//         );
-//       })
-//     : searchBookResults?.length > 0 &&
-//       searchBookResults?.map((book) => {
-//         return (
-//           <>
-//             book={book} key={book?._id}
-//           </>
-//         );
-//       });
 
 export default Home2;

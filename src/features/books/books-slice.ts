@@ -15,7 +15,7 @@ export const booksSlice = createSlice({
   name: "books",
   initialState,
   reducers: {
-    searchBook: (state, action) => {
+    searchBook: (state, action: PayloadAction<string>) => {
       state.bookSearch = action.payload;
     },
     clearSearchBook: (state) => {

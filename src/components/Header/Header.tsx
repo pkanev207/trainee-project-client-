@@ -2,7 +2,10 @@ import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { logout, selectAuth } from "../../features/auth/auth-slice";
-import { changePageNumber } from "../../features/books/books-slice";
+import {
+  changePageNumber,
+  clearSearchBook,
+} from "../../features/books/books-slice";
 import { toast } from "react-toastify";
 import styles from "./Header.module.css";
 
@@ -17,6 +20,7 @@ function Header() {
 
   const onLogout = () => {
     dispatch(changePageNumber({ pageNumber: 1 }));
+    dispatch(clearSearchBook());
     dispatch(logout());
     toast.success("User logout successfully!");
     navigate("/");

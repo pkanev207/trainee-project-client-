@@ -12,16 +12,14 @@ export const booksApi = apiSlice.injectEndpoints({
       // transformResponse: () => {},
       providesTags: ["Books"],
     }),
-    useGetAllBooksPaginated: builder.query<
+    getAllBooksPaginated: builder.query<
       any,
-      { page: number | string; limit?: number | string }
+      { page: number | string; limit?: number | string; searchTerm?: string }
     >({
       query: (args) => {
-        // console.log("From useGetAllBooksPaginated!");
-        // console.log(args);
-        const { page, limit } = args;
+        const { page, limit, searchTerm } = args;
         return {
-          url: `/books/paginated?page=${page}&limit=${limit}`,
+          url: `/books/paginated?page=${page}&limit=${limit}&query=${searchTerm}`,
           // params: { page, limit },
           method: "GET",
         };
@@ -119,7 +117,7 @@ export const booksApi = apiSlice.injectEndpoints({
 
 export const {
   useGetAllBooksQuery,
-  useUseGetAllBooksPaginatedQuery,
+  useGetAllBooksPaginatedQuery,
   useGetBookByIdQuery,
   useGetUserBooksQuery,
   useCreateBookMutation,

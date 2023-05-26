@@ -1,6 +1,7 @@
 import styles from "./Pagination.module.css";
 import { changePageNumber } from "../../features/books/books-slice";
 import { useAppDispatch } from "../../app/hooks";
+import { useState, useEffect } from "react";
 
 export interface IPagination {
   page: number;
@@ -9,11 +10,20 @@ export interface IPagination {
 }
 
 const Pagination = ({ page, pages, changePage }: IPagination) => {
+  // console.log("From Pagination: ", page, pages);
+
   const dispatch = useAppDispatch();
   const changePageStoreValue = (value: number) =>
     dispatch(changePageNumber({ pageNumber: value }));
 
   let middlePagination;
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    if (pages === 6) {
+      setIsVisible(false);
+    }
+  }, []);
 
   if (pages <= 5) {
     middlePagination = [...Array(pages)].map((_, idx) => (
@@ -37,7 +47,12 @@ const Pagination = ({ page, pages, changePage }: IPagination) => {
           <button
             key={startValue + idx + 1}
             disabled={page === startValue + idx + 1}
-            onClick={() => {
+            onClick={(e) => {
+              console.log(e.currentTarget.textContent);
+              // if (Number(e.currentTarget.textContent) === 5 && pages === 6) {
+              //   setIsVisible(false);
+              // }
+
               changePage(startValue + idx + 1);
               changePageStoreValue(startValue + idx + 1);
             }}
@@ -46,14 +61,24 @@ const Pagination = ({ page, pages, changePage }: IPagination) => {
           </button>
         ))}
 
-        <button
-          onClick={() => {
-            changePage(pages - 1);
-            changePageStoreValue(pages - 1);
-          }}
-        >
-          ...
-        </button>
+        {isVisible ? (
+          <button
+            onClick={(e) => {
+              if (pages === 6) {
+                console.log("Nasty button");
+                changePage(pages);
+                changePageStoreValue(pages);
+                // setIsVisible(!isVisible);
+              } else {
+                changePage(pages - 1);
+                changePageStoreValue(pages - 1);
+              }
+            }}
+          >
+            ...
+          </button>
+        ) : null}
+
         <button
           onClick={() => {
             changePage(pages);

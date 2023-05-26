@@ -11,6 +11,12 @@ interface IBookProps {
 function Book({ book }: IBookProps) {
   const navigate = useNavigate();
 
+  const title =
+    book.title.length > 21 ? book.title.slice(0, 22) + "..." : book.title;
+
+  const author =
+    book.author.length > 14 ? book.author.slice(0, 14) + "..." : book.author;
+
   const handleDetails = () => {
     navigate("/details", {
       state: {
@@ -21,13 +27,14 @@ function Book({ book }: IBookProps) {
 
   return (
     <div className="book">
-      <h3>{book.title}</h3>
-      <div>{book.author}</div>
+      <h3>{title}</h3>
+      <div>{author}</div>
       <div>
         <img
           className={styles.cover}
           src={book.imgUrl}
           alt="front cover of the book"
+          // srcSet="book.imgUrl 400w, book.imgUrl 800w, book.imgUrl 1200w"
         />
       </div>
       <button onClick={handleDetails} className="close">
