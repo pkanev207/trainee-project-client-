@@ -44,11 +44,16 @@ function Home2() {
         <h1>Welcome {name}</h1>
         <p>Books Catalog</p>
       </section>
-      {name && <SearchBar setPage={setPage} />}
-      <Pagination page={page} pages={pages} changePage={setPage} />
+      {userBooks.length > 0 ? (
+        <>
+          <SearchBar setPage={setPage} />
+          <Pagination page={page} pages={pages} changePage={setPage} />
+        </>
+      ) : null}
       <section className={styles.content}>
         {userBooks.length > 0 ? (
           <div className={styles.books}>
+            {/* <Pagination page={page} pages={pages} changePage={setPage} /> */}
             {userBooks.map((obj: IBookModel) => (
               <Book key={obj["_id"]} book={obj} />
             ))}

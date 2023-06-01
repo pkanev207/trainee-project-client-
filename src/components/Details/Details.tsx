@@ -57,6 +57,7 @@ function Details() {
       if (window.confirm("Are you sure?")) {
         await deleteBook({ book, token });
         navigate("/");
+        window.location.reload();
       }
     } else {
       navigate("/auth/login");

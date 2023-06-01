@@ -87,11 +87,12 @@ function BookForm(props: IBookFormProps) {
       console.log(res);
     } else {
       return toast.error(
-        "Please make sure you are the author of the book and check all the input fields"
+        "Please make sure you are the creator of the record and check all the input fields"
       );
     }
 
     navigate("/");
+    window.location.reload();
   };
 
   const handleCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {

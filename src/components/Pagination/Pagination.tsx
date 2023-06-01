@@ -10,8 +10,6 @@ export interface IPagination {
 }
 
 const Pagination = ({ page, pages, changePage }: IPagination) => {
-  // console.log("From Pagination: ", page, pages);
-
   const dispatch = useAppDispatch();
   const changePageStoreValue = (value: number) =>
     dispatch(changePageNumber({ pageNumber: value }));
@@ -48,11 +46,9 @@ const Pagination = ({ page, pages, changePage }: IPagination) => {
             key={startValue + idx + 1}
             disabled={page === startValue + idx + 1}
             onClick={(e) => {
-              console.log(e.currentTarget.textContent);
               // if (Number(e.currentTarget.textContent) === 5 && pages === 6) {
               //   setIsVisible(false);
               // }
-
               changePage(startValue + idx + 1);
               changePageStoreValue(startValue + idx + 1);
             }}
