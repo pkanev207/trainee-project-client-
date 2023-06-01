@@ -30,6 +30,7 @@ function Home2() {
   dataPages ? (userBooks = dataPages.data) : (userBooks = []);
 
   useEffect(() => {
+    // console.log(dataPages);
     setPages(dataPages?.numberOfPages);
   }, [dataPages, pages, page, searchTerm]);
 

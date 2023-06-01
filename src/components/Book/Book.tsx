@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { FaCcDiscover } from "react-icons/fa";
 import { IBookModel } from "../../models/book";
+import { stringShortener } from "../../utils/string-shortener";
 import styles from "./Book.module.css";
 
 interface IBookProps {
@@ -11,11 +12,11 @@ interface IBookProps {
 function Book({ book }: IBookProps) {
   const navigate = useNavigate();
 
-  const title =
-    book.title.length > 21 ? book.title.slice(0, 22) + "..." : book.title;
+  const title = stringShortener(book.title);
+  // book.title.length > 21 ? book.title.slice(0, 22) + "..." : book.title;
 
-  const author =
-    book.author.length > 14 ? book.author.slice(0, 14) + "..." : book.author;
+  const author = stringShortener(book.author);
+  // book.author.length > 14 ? book.author.slice(0, 14) + "..." : book.author;
 
   const handleDetails = () => {
     navigate("/details", {

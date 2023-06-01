@@ -1,9 +1,9 @@
 export interface UserModel {
   _id?: string;
-  name?: string;
+  name: string;
   email?: string;
   password?: string;
-  role?: string;
+  role: string;
   finishedBooks?: [string];
   currentBooks?: [string];
   futureBooks?: [string];

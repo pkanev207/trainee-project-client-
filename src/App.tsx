@@ -8,6 +8,9 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Header from "./components/Header/Header";
+import Read from "./components/Read/Read";
+import Archived from "./components/Archived/Archived";
+import Wishlist from "./components/Whishlist/Wishlist";
 import Details from "./components/Details/Details";
 import Edit from "./components/Edit/Edit";
 import { useAppDispatch } from "./app/hooks";
@@ -32,6 +35,30 @@ function App() {
             {/* <Route path="/paginated" element={<Home />} /> */}
             <Route path="/auth/register" element={<Register />} />
             <Route path="/auth/login" element={<Login />} />
+            <Route
+              path="/read"
+              element={
+                <PrivateRoute>
+                  <Read />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/archived"
+              element={
+                <PrivateRoute>
+                  <Archived />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/wishlist"
+              element={
+                <PrivateRoute>
+                  <Wishlist />
+                </PrivateRoute>
+              }
+            />
             <Route
               path="/dashboard"
               element={

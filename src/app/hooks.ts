@@ -10,6 +10,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 interface IUserState {
   token: string | null;
   name: string | null;
+  role: string | null;
 }
 
 export const useGetUser = () => {

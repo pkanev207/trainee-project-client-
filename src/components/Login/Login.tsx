@@ -54,7 +54,11 @@ function Login() {
       toast.success("User login successful!");
       // dispatch(changePageNumber({ pageNumber: 1 }));
       dispatch(
-        setUser({ name: loginData?.name ?? "", token: loginData?.token ?? "" })
+        setUser({
+          name: loginData?.name ?? "",
+          token: loginData?.token ?? "",
+          role: loginData?.role ?? "",
+        })
       );
       navigate("/");
     }

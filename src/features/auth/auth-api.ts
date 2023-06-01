@@ -32,7 +32,23 @@ export const authApi = apiSlice.injectEndpoints({
         };
       },
     }),
+    getUser: builder.query<IGenericResponse, any>({
+      query: (token) => {
+        return {
+          url: "/users/user",
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      // transformResponse: () => {},
+    }),
   }),
 });
 
-export const { useLoginUserMutation, useRegisterUserMutation } = authApi;
+export const {
+  useLoginUserMutation,
+  useRegisterUserMutation,
+  useGetUserQuery,
+} = authApi;

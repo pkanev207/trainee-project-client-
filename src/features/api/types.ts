@@ -13,4 +13,5 @@ export interface IGenericResponse {
   token: string;
   status: string;
   message: string;
+  role: string;
 }
