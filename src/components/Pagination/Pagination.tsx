@@ -2,12 +2,7 @@ import styles from "./Pagination.module.css";
 import { changePageNumber } from "../../features/books/books-slice";
 import { useAppDispatch } from "../../app/hooks";
 import { useState, useEffect } from "react";
-
-export interface IPagination {
-  page: number;
-  pages: number;
-  changePage: (num: any) => void;
-}
+import { IPagination } from "../../definitions";
 
 const Pagination = ({ page, pages, changePage }: IPagination) => {
   const dispatch = useAppDispatch();

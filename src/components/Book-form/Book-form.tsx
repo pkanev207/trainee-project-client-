@@ -1,28 +1,14 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import { useEffect, useState, useRef, SyntheticEvent } from "react";
 import { useGetUser } from "../../app/hooks";
 import { useCreateBookMutation } from "../../features/books/books-api";
 import { useUpdateBookMutation } from "../../features/books/books-api";
-import { useUploadImgMutation } from "../../features/books/books-api";
+// import { useUploadImgMutation } from "../../features/books/books-api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaUpload } from "react-icons/fa";
-import styles from "./BookForm.module.css";
-
-export interface IBookFormProps {
-  _id?: string;
-  title?: string;
-  description?: string;
-  imgUrl?: string;
-  cloudinaryId?: string;
-  userName?: string;
-  author?: string;
-  user?: { _id?: string; name: string; role: string };
-  cover?: HTMLImageElement;
-  // handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-}
+import { IBookFormProps } from "../../definitions";
+import { IDataError } from "../../definitions";
+import styles from "./Book-form.module.css";
 
 function BookForm(props: IBookFormProps) {
   const [title, setTitle] = useState("");
@@ -35,7 +21,6 @@ function BookForm(props: IBookFormProps) {
   const [author, setAuthor] = useState("");
   const [createBook, { isLoading: isCreateLoading }] = useCreateBookMutation();
   const [updateBook, { isLoading: isUpdateLoading }] = useUpdateBookMutation();
-  const [uploadImg] = useUploadImgMutation();
   const user = useGetUser();
   const navigate = useNavigate();
   const buttonRef = useRef(null);
@@ -60,31 +45,36 @@ function BookForm(props: IBookFormProps) {
       title !== "" && description !== "" && author !== "";
 
     if (action === "Add Book" && !isAuthor && isValidInput && token) {
-      if (cover === undefined) {
+      if (cover === undefined || cover === null) {
         toast.warning("Upload image");
         return;
       }
 
-      const book = new FormData(e.target);
+      const book = new FormData(e.target as HTMLFormElement);
       book.append("imgUrl", imgUrl);
       book.append("image", cover);
 
-      const res = await createBook({ book, token });
-      if (res.error) {
-        toast.error(res.error.data.message.toString());
+      try {
+        await createBook({ book, token }).unwrap();
+      } catch (error) {
+        toast.error((error as IDataError).data.message);
+        return;
       }
     } else if (action === "Update Book" && isAuthor && isValidInput) {
       // const book = { ...props, title, description, imgUrl, author };
-      const book = new FormData(e.target);
-      if (cover !== undefined) {
+      const book = new FormData(e.target as HTMLFormElement);
+      if (cover !== undefined && cover !== null) {
         book.append("image", cover);
       }
-      book.append("_id", props._id);
+      book.append("_id", props._id || "");
       book.append("imgUrl", imgUrl);
-      book.append("cloudinaryId", props.cloudinaryId);
-
-      const res = await updateBook({ book, token });
-      console.log(res);
+      book.append("cloudinaryId", props.cloudinaryId ?? "");
+      try {
+        await updateBook({ book, token }).unwrap();
+      } catch (error) {
+        toast.error((error as IDataError).data.message);
+        return;
+      }
     } else {
       return toast.error(
         "Please make sure you are the creator of the record and check all the input fields"
@@ -92,7 +82,7 @@ function BookForm(props: IBookFormProps) {
     }
 
     navigate("/");
-    window.location.reload();
+    // window.location.reload();
   };
 
   const handleCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,63 +91,6 @@ function BookForm(props: IBookFormProps) {
     }
     setCover(e.target.files[0]);
     setCoverPreview(URL.createObjectURL(e.target.files[0]));
-  };
-
-  const handleImage = (e: SyntheticEvent) => {
-    // console.log(cover);
-    const formData = new FormData();
-    formData.append("image", cover);
-
-    uploadImg({ formData, token });
-
-    // fetch("http://localhost:5000/api/books/images/upload", {
-    //   method: "POST",
-    //   // body: JSON.stringify({ message: "cover" }),
-    //   body: formData,
-    //   headers: {
-    //     authorization: `Bearer ${token}`,
-    //     // "content-type": cover!.type,
-    //     // "content-length": `${cover!.size}`,
-    //     "content-type": "multipart/form-data",
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data))
-    //   .catch((error) => console.log(error));
-
-    // // Uploading multiple files using FormData in ReactJS.
-    //     import { ChangeEvent, useState } from 'react';
-
-    // function FileUploadMultiple() {
-    //   const [fileList, setFileList] = useState<FileList | null>(null);
-
-    //   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setFileList(e.target.files);
-    //   };
-
-    //   const handleUploadClick = () => {
-    //     if (!fileList) {
-    //       return;
-    //     }
-
-    //     // 👇 Create new FormData object and append files
-    //     const data = new FormData();
-    //     files.forEach((file, i) => {
-    //       data.append(`file-${i}`, file, file.name);
-    //     });
-
-    //     // 👇 Uploading the files using the fetch API to the server
-    //     fetch('https://httpbin.org/post', {
-    //       method: 'POST',
-    //       body: data,
-    //     })
-    //       .then((res) => res.json())
-    //       .then((data) => console.log(data))
-    //       .catch((err) => console.error(err));
-    //   };
-
-    //   // 👇 files is not an array, but it's iterable, spread to get an array of files
-    //   const files = fileList ? [...fileList] : [];
   };
 
   return (
@@ -197,7 +130,7 @@ function BookForm(props: IBookFormProps) {
                   id="image"
                   onChange={handleCoverChange}
                   // required={true}
-                  value={cover}
+                  value={cover as any}
                 />
               </label>
             </div>
@@ -218,39 +151,6 @@ function BookForm(props: IBookFormProps) {
           </button>
         </div>
       </form>
-      {/* {coverPreview ? (
-        <>
-          <img src={coverPreview} alt="" className={styles.previewImg} />
-          <button
-            onClick={handleImage}
-            style={{
-              display: "block",
-              textAlign: "center",
-              margin: " 6px auto",
-              padding: "6px",
-              borderRadius: "6px",
-            }}
-          >
-            Upload
-          </button>
-        </>
-      ) : (
-        <div className="coverImageInput">
-          <label htmlFor="image" className={styles.labelCoverBtnUpload}>
-            <p>Upload image</p>
-            <input
-              className={styles.coverBtnUpload}
-              type="file"
-              accept="image/*"
-              name="image"
-              id="image"
-              onChange={handleCoverChange}
-              required={true}
-              value={cover}
-            />
-          </label>
-        </div>
-      )} */}
     </section>
   );
 }

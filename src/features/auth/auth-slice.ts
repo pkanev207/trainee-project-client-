@@ -1,11 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-
-export interface IAuthState {
-  name: string | null;
-  token: string | null;
-  role: string | null;
-}
+import { IAuthState } from "../../definitions";
 
 const initialState: IAuthState = {
   name: null,

@@ -2,12 +2,9 @@ import { useState } from "react";
 import { FaSistrix } from "react-icons/fa";
 import { useAppDispatch } from "../../app/hooks";
 import { searchBook, changePageNumber } from "../../features/books/books-slice";
+import { ISearchBarProps } from "../../definitions";
 
-import styles from "./SearchBar.module.css";
-
-export interface ISearchBarProps {
-  setPage: (str: any) => void;
-}
+import styles from "./Search-bar.module.css";
 
 const SearchBar = (props: ISearchBarProps) => {
   const { setPage } = props;

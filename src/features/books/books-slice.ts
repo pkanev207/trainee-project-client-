@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-
-export interface IBooksState {
-  bookSearch: string | null;
-  pageNumber: number | null;
-}
+import { IBooksState } from "../../definitions";
 
 const initialState: IBooksState = {
   bookSearch: "",

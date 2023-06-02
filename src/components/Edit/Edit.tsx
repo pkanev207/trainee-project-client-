@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import BookForm from "../BookForm/BookForm";
+import BookForm from "../Book-form/Book-form";
 import styles from "./Edit.module.css";
 
 export default function Edit() {

@@ -1,4 +1,4 @@
-import BookForm from "../BookForm/BookForm";
+import BookForm from "../Book-form/Book-form";
 import styles from "./Dashboard.module.css";
 
 // export interface IDashboardProps {}

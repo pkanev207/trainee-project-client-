@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { FaCcDiscover } from "react-icons/fa";
-import { IBookModel } from "../../models/book";
+import { IBookModel } from "../../definitions/index";
 import { stringShortener } from "../../utils/string-shortener";
 import styles from "./Book.module.css";
 

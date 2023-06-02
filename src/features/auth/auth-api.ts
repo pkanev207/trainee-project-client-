@@ -1,16 +1,9 @@
 import { apiSlice } from "../api/api-slice";
-import { IGenericResponse } from "../api/types";
-
-export interface IRegisterCredentials {
-  username: string;
-  email: string;
-  password: string;
-}
-
-export interface ILoginCredentials {
-  username: string;
-  password: string;
-}
+import {
+  IGenericResponse,
+  ILoginCredentials,
+  IRegisterCredentials,
+} from "../../definitions/types";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
