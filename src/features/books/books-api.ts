@@ -125,3 +125,8 @@ export const {
   useDeleteBookMutation,
   useUploadImgMutation,
 } = booksApi;
+
+// I can't help but notice that your server is not accessed via a secure URL
+// (it's running on http://localhost:3000) and its response attempts to set a cookie marked Secure.
+// Browsers reject such attempts. Only secure origins (in practice, those starting with https://)
+// are allowed by browsers to set secure cookies

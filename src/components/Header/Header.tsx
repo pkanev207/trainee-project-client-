@@ -29,7 +29,7 @@ function Header() {
     dispatch(logout());
     toast.success("User logout successfully!");
     navigate("/");
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (

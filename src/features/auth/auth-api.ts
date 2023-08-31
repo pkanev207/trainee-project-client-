@@ -13,6 +13,9 @@ export const authApi = apiSlice.injectEndpoints({
           url: "/users/login",
           method: "POST",
           body,
+          // credentials: "include",
+          // data: form,
+          // data: { rest },
         };
       },
     }),
@@ -37,6 +40,23 @@ export const authApi = apiSlice.injectEndpoints({
       },
       // transformResponse: () => {},
     }),
+    refresh: builder.mutation({
+      query: () => ({
+        url: "/auth/refresh",
+        method: "GET",
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log(data);
+          const { accessToken } = data;
+          // set state
+          // dispatch(setCredentials({ accessToken }));
+        } catch (err) {
+          console.log(err);
+        }
+      },
+    }),
   }),
 });
 
@@ -44,4 +64,5 @@ export const {
   useLoginUserMutation,
   useRegisterUserMutation,
   useGetUserQuery,
+  useRefreshMutation,
 } = authApi;

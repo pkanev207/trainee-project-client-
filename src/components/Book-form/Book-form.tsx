@@ -82,7 +82,7 @@ function BookForm(props: IBookFormProps) {
     }
 
     navigate("/");
-    // window.location.reload();
+    window.location.reload();
   };
 
   const handleCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {

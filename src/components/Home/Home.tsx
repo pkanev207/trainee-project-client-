@@ -25,6 +25,11 @@ function Home2() {
 
   const { data: dataPages, isFetching: isFetchingPages } =
     useGetAllBooksPaginatedQuery(args);
+  // useGetAllBooksPaginatedQuery(args, {
+  //   pollingInterval: 15000,
+  //   refetchOnFocus: true,
+  //   refetchOnMountOrArgChange: true,
+  // });
 
   let userBooks: IBookModel[];
   dataPages ? (userBooks = dataPages.data) : (userBooks = []);
